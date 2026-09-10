@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>RestaurantOS — Inventory & Attendance Manager</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">
+      <div class="logo-title">RestaurantOS</div>
+      <div class="logo-sub">Management Suite</div>
+    </div>
+
+    <div class="loc-section">
+      <div class="loc-label">Locations</div>
+
+      <button class="loc-btn active" onclick="setLoc('all',this)">
+        <span class="loc-dot" style="background:#9a9490"></span>
+        All Locations
+      </button>
+
+      <button class="loc-btn" onclick="setLoc('Downtown',this)">
+        <span class="loc-dot" style="background:#e8c882"></span>
+        Downtown
+      </button>
+
+      <button class="loc-btn" onclick="setLoc('Midtown',this)">
+        <span class="loc-dot" style="background:#6bcb8b"></span>
+        Midtown
+      </button>
+
+      <button class="loc-btn" onclick="setLoc('Uptown',this)">
+        <span class="loc-dot" style="background:#7aaddc"></span>
+        Uptown
+      </button>
+
+      <button class="loc-btn" onclick="setLoc('Airport',this)">
+        <span class="loc-dot" style="background:#e07070"></span>
+        Airport
+      </button>
+
+      <button class="loc-btn" onclick="setLoc('Westside',this)">
+        <span class="loc-dot" style="background:#c97ad4"></span>
+        Westside
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Modules</div>
+
+      <button class="nav-btn active" id="nav-inv" onclick="switchTab('inv')">
+        <span>📦</span> Inventory
+      </button>
+
+      <button class="nav-btn" id="nav-att" onclick="switchTab('att')">
+        <span>👥</span> Attendance
+      </button>
+    </div>
+
+    <div class="sidebar-footer">
+      v1.0 · 5 Locations
+    </div>
+
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Top Bar -->
+    <div class="topbar">
+
+      <div>
+        <div class="topbar-title" id="topbar-title">
+          Inventory Management
+        </div>
+
+        <div class="topbar-sub" id="topbar-sub">
+          Track stock across all locations
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+
+        <div id="date-wrap" style="display:none">
+          <input
+            type="date"
+            id="att-date"
+            class="date-input"
+            onchange="render()"
+          >
+        </div>
+
+        <div class="search-wrap">
+          <input
+            id="search-box"
+            class="search-input"
+            placeholder="Search..."
+            oninput="render()"
+          >
+        </div>
+
+        <button class="btn btn-primary" onclick="openModal()">
+          <span id="add-btn-label">Add Item</span>
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- Inventory Panel -->
+      <div id="inv-panel">
+
+        <div class="metrics" id="inv-metrics"></div>
+
+        <div class="table-container">
+
+          <div class="table-head">
+            <span class="table-head-title">All Items</span>
+          </div>
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Qty</th>
+                <th>Unit</th>
+                <th>Unit Price</th>
+                <th>Total Value</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody id="inv-tbody"></tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+      <!-- Attendance Panel -->
+      <div id="att-panel" style="display:none">
+
+        <div class="metrics" id="att-metrics"></div>
+
+        <div class="table-container">
+
+          <div class="table-head">
+            <span class="table-head-title">Staff Records</span>
+          </div>
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>Employee</th>
+                <th>Role</th>
+                <th>Location</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+                <th>Hours</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody id="att-tbody"></tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal-overlay" onclick="overlayClick(event)">
+
+  <div class="modal">
+
+    <div class="modal-title" id="modal-title">
+      Add Item
+    </div>
+
+    <div id="modal-body"></div>
+
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal()">
+        Cancel
+      </button>
+
+      <button class="btn btn-primary" onclick="saveModal()">
+        Save
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- External JavaScript -->
+<script src="script.js"></script>
+
+</body>
+</html>
